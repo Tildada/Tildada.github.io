@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Chapter 6 - Sequence Modeling for Natural Language ProcessingSequence data: One data item depends on the items that precede or follow it.Traditional approaches: Markov models, conditional random field">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes on &quot;NLP with Pytorch&quot;-Ch6">
+<meta property="og:url" content="http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/index.html">
+<meta property="og:site_name" content="Wentao&#39;s Blog">
+<meta property="og:description" content="Chapter 6 - Sequence Modeling for Natural Language ProcessingSequence data: One data item depends on the items that precede or follow it.Traditional approaches: Markov models, conditional random field">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-30T05:58:11.000Z">
+<meta property="article:modified_time" content="2020-07-30T07:00:38.508Z">
+<meta property="article:author" content="Wentao Kang">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Notes on &#34;NLP with Pytorch&#34;-Ch6</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/07/30/Notes-on-NLP-with-Pytorch-Ch7/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&text=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&is_video=false&description=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Notes on &#34;NLP with Pytorch&#34;-Ch6&body=Check out this article: http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&name=Notes on &#34;NLP with Pytorch&#34;-Ch6&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&t=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-6-Sequence-Modeling-for-Natural-Language-Processing"><span class="toc-number">1.</span> <span class="toc-text">Chapter 6 - Sequence Modeling for Natural Language Processing</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-RNN"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction to RNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Implementing-an-ElmanRNN"><span class="toc-number">1.2.</span> <span class="toc-text">Implementing an ElmanRNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Classify-Surname-Nationality-Using-a-RNN"><span class="toc-number">1.3.</span> <span class="toc-text">Example: Classify Surname Nationality Using a RNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model"><span class="toc-number">1.3.1.</span> <span class="toc-text">Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Settings"><span class="toc-number">1.3.2.</span> <span class="toc-text">Settings:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Training-Routine"><span class="toc-number">1.3.3.</span> <span class="toc-text">Training Routine:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E5%B0%86surname-vecoterize%EF%BC%9F"><span class="toc-number">1.3.4.</span> <span class="toc-text">何时将surname vecoterize？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notes-on-Papers"><span class="toc-number">1.4.</span> <span class="toc-text">Notes on Papers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Title"><span class="toc-number">1.5.</span> <span class="toc-text">Title</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Deep-Neural-Networks"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. Deep Neural Networks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Experimental-Setting-and-Datasets"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. Experimental Setting and Datasets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Effect-of-Activation-Functions-and-Saturation-During-Training"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. Effect of Activation Functions and Saturation During Training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Studying-Gradients-and-their-Propagation"><span class="toc-number">1.5.4.</span> <span class="toc-text">4. Studying Gradients and their Propagation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Error-Curves-and-Conclusions"><span class="toc-number">1.5.5.</span> <span class="toc-text">5. Error Curves and Conclusions</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Notes on &#34;NLP with Pytorch&#34;-Ch6
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wentao's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-30T05:58:11.000Z" itemprop="datePublished">2020-07-30</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Chapter-6-Sequence-Modeling-for-Natural-Language-Processing"><a href="#Chapter-6-Sequence-Modeling-for-Natural-Language-Processing" class="headerlink" title="Chapter 6 - Sequence Modeling for Natural Language Processing"></a>Chapter 6 - Sequence Modeling for Natural Language Processing</h1><p>Sequence data: One data item depends on the items that precede or follow it.<br>Traditional approaches: Markov models, conditional random fields, graphical models.<br>Hidden state: sequence representation<br>This chapter: classification</p>
+<h2 id="Introduction-to-RNN"><a href="#Introduction-to-RNN" class="headerlink" title="Introduction to RNN"></a>Introduction to RNN</h2><p>Elman RNN<br>Hidden-to-hidden weight matrix(previous hidden state)+input-to-hidden weight matrix(input) = new hidden vector<br>RNN sharing parameters across time and CNN sharing across space<br>Variable-length: masking</p>
+<h2 id="Implementing-an-ElmanRNN"><a href="#Implementing-an-ElmanRNN" class="headerlink" title="Implementing an ElmanRNN"></a>Implementing an ElmanRNN</h2><p>Input: a matrix: input + a matrix: hidden vectors<br>Output: a matrix: hidden vectors as the results<br>How to use it?(classification)<br>Classify each time step to some discrete set of options<br>Use the final vector for classifying the entire sequence<br>需注意：torch.stack()的使用——–主要是对于dim参数的理解，可参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/Teeyohuang/article/details/80362756/">博文</a></p>
+<h2 id="Example-Classify-Surname-Nationality-Using-a-RNN"><a href="#Example-Classify-Surname-Nationality-Using-a-RNN" class="headerlink" title="Example: Classify Surname Nationality Using a RNN"></a>Example: Classify Surname Nationality Using a RNN</h2><p>预处理较容易，基本和第四章一样</p>
+<h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>1.class ElmanRNN同本章节上一部分</p>
+<p>2.Recap: What is Embedding?<br>Embedding layer: the vectorization that returns a vector of integers, and used to create a matrix of dense vectors.<br>可参考<a target="_blank" rel="noopener" href="https://spaces.ac.cn/archives/4122">词向量与Embedding究竟是怎么回事？</a>理解</p>
+<p>3.column_gather(y_out, x_lengths)<br>一个batch有多个sequence，x_length储存这些sequence的长度。返回的是每一个batch最后的sequence们组合起来的stack</p>
+<h3 id="Settings"><a href="#Settings" class="headerlink" title="Settings:"></a>Settings:</h3><p>①Args: centrally coordinate all decision points(Hyperparameters and programoptions)<br>② Check device<br>③ Set seed<br>④ handle dirs<br>⑤ Training from a checkpoint/create dataset and vectorizer<br>Process of ‘create dataset and vectorizer’:<br>SurnameDataset.load_dataset_and_make_vectorizer（given “.csv”） –&gt;建立一个SurnameDataset类的对象，其中Arg1：surname_df来自“.csv”， Arg2：vectorizer来自split == train的部分（利用SurnameVectorizer.from_dataframe）–&gt;建立一个SurnameVectorizer类的对象，Arg1：char_vocab（maps characters to integers）(SequenceVocabulary类)Arg2：nationality_vocab<br>⑥ Set vectorizer和classifer</p>
+<h3 id="Training-Routine"><a href="#Training-Routine" class="headerlink" title="Training Routine:"></a>Training Routine:</h3><p>① 3 def: make_train_state/update_train_state（return a new state）/compute_accuracy<br>② put classifer and dataset.class_weights to the right device.<br>Set loss_fuc/optimizer/scheduler/state/bar<br>③ train with a generator</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">batch_generator = generate_batches()</span><br></pre></td></tr></table></figure>
+<p>def generate_batches: A generator function which wraps the PyTorch DataLoader.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">yield</span> out_data_dict <span class="comment"># dict&#123;name:tensor&#125;</span></span><br></pre></td></tr></table></figure>
+<p>④ start to train:<br>Iterate over training dataset:   #for batch in batches:<br>step 1. zero the gradients<br>step 2. compute the output<br>step 3. compute the loss<br>step 4. use loss to produce gradients<br>step 5. use optimizer to take gradient step<br>Compute the accuracy&amp;update bar<br>Iterate over val dataset:          #for batch in batches:<br>Compute the output/loss/accuracy<br>Update parm<br>Compute the loss &amp; accuracy on the test set using the best available model</p>
+<h3 id="何时将surname-vecoterize？"><a href="#何时将surname-vecoterize？" class="headerlink" title="何时将surname vecoterize？"></a>何时将surname vecoterize？</h3><p>如何理解generate_batches函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_batches</span>(<span class="params">dataset, batch_size, shuffle=True,</span></span></span><br><span class="line"><span class="function"><span class="params">                     drop_last=True, device=<span class="string">&quot;cpu&quot;</span></span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    A generator function which wraps the PyTorch DataLoader. It will</span></span><br><span class="line"><span class="string">      ensure each tensor is on the write device location.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    dataloader = DataLoader(dataset=dataset, batch_size=batch_size,</span><br><span class="line">                            shuffle=shuffle, drop_last=drop_last)</span><br><span class="line">    <span class="keyword">for</span> data_dict <span class="keyword">in</span> dataloader:</span><br><span class="line">        out_data_dict = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> name, tensor <span class="keyword">in</span> data_dict.items():</span><br><span class="line">            out_data_dict[name] = data_dict[name].to(device)</span><br><span class="line">        <span class="keyword">yield</span> out_data_dict</span><br></pre></td></tr></table></figure>
+<p>The DataLoader supports both map-style and iterable-style datasets with single- or multi-process loading, customizing loading order and optional automatic batching (collation) and memory pinning.<br>通过设断点debug并且观察函数调用过程和参数变化，不难解决这个问题。<br>我们在代码中重写了Dataset的len和getitem部分，其中len应该返回数据集的大小，getitem应该编写支持数据集索引的函数，例如通过dataset[i]可以得到数据集中的第i+1个数据。<br>关于getitem的理解：如果在类中定义了getitem方法，那么他的实例对象（假设为P）就可以这样P[key]取值。当实例对象做P[key]运算时，就会调用类中的getitem()方法。<br>在本例中getitem(the primary entry point method for PyTorch datasets)参数为Index，返回这个index对应的一个字典：{‘x_data’: surname_vector, ‘y_target’: nationality_index, ‘x_length’: vec_length}。<br>所以代码实际运行时，到了for data_dict in dataloader:步，即是用for的方法逐个调用getitem，进而获得一个data_dict,它的结构为</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;‘x_data’:Tensor(batch_size,vec_length), <span class="comment"># 即batchsize个名字向量化后组成的tensor</span></span><br><span class="line">’y_target’:Tensor(batch_size), <span class="comment"># 即每个名字对应的国家</span></span><br><span class="line">‘x_length’:Tensor(batch_size)&#125; <span class="comment"># 即每个人名的实际长度</span></span><br></pre></td></tr></table></figure>
+<p>在把data_dict放到正确的device上后，再yield回去</p>
+<h2 id="Notes-on-Papers"><a href="#Notes-on-Papers" class="headerlink" title="Notes on Papers"></a>Notes on Papers</h2><h2 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h2><p>Understanding the difﬁculty of training deep feedforward neural networks</p>
+<h3 id="1-Deep-Neural-Networks"><a href="#1-Deep-Neural-Networks" class="headerlink" title="1. Deep Neural Networks"></a>1. Deep Neural Networks</h3><h3 id="2-Experimental-Setting-and-Datasets"><a href="#2-Experimental-Setting-and-Datasets" class="headerlink" title="2. Experimental Setting and Datasets"></a>2. Experimental Setting and Datasets</h3><p>cost function：− log P(y|x)<br>non-linear activation function: the sigmoid 1/(1 + e−x ), the hyperbolic tangent tanh(x), and the softsign, x/(1 + |x|).<br>Initialize:uniform distribution</p>
+<h3 id="3-Effect-of-Activation-Functions-and-Saturation-During-Training"><a href="#3-Effect-of-Activation-Functions-and-Saturation-During-Training" class="headerlink" title="3. Effect of Activation Functions and Saturation During Training"></a>3. Effect of Activation Functions and Saturation During Training</h3><p>Sigmoid: The top hidden layer saturates at 0 (slowing down all learning), slowly desaturates around epoch 100.<br>Tanh: ﬁrst hidden layer saturating ﬁrst, then the second, etc.<br>Softsign: many activation values around (-0.6,-0.8) and (0.6,0.8) where the<br>units do not saturate but are non-linear.</p>
+<h3 id="4-Studying-Gradients-and-their-Propagation"><a href="#4-Studying-Gradients-and-their-Propagation" class="headerlink" title="4. Studying Gradients and their Propagation"></a>4. Studying Gradients and their Propagation</h3><p>normalized initialization<br>Gradient Propagation<br>standard: 0-peak increases for higher layers</p>
+<h3 id="5-Error-Curves-and-Conclusions"><a href="#5-Error-Curves-and-Conclusions" class="headerlink" title="5. Error Curves and Conclusions"></a>5. Error Curves and Conclusions</h3><p>Softsign：more robust（gentler non-linearity）.<br>Tanh：normalized initialization is helpful，layer-to-layer transformations maintain magnitudes of activations (ﬂowing upward) and gradients (ﬂowing backward).<br>Monitoring activations and gradients across layers and training iterations—-a powerful investigative tool. </p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-6-Sequence-Modeling-for-Natural-Language-Processing"><span class="toc-number">1.</span> <span class="toc-text">Chapter 6 - Sequence Modeling for Natural Language Processing</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction-to-RNN"><span class="toc-number">1.1.</span> <span class="toc-text">Introduction to RNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Implementing-an-ElmanRNN"><span class="toc-number">1.2.</span> <span class="toc-text">Implementing an ElmanRNN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Classify-Surname-Nationality-Using-a-RNN"><span class="toc-number">1.3.</span> <span class="toc-text">Example: Classify Surname Nationality Using a RNN</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model"><span class="toc-number">1.3.1.</span> <span class="toc-text">Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Settings"><span class="toc-number">1.3.2.</span> <span class="toc-text">Settings:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Training-Routine"><span class="toc-number">1.3.3.</span> <span class="toc-text">Training Routine:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E5%B0%86surname-vecoterize%EF%BC%9F"><span class="toc-number">1.3.4.</span> <span class="toc-text">何时将surname vecoterize？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notes-on-Papers"><span class="toc-number">1.4.</span> <span class="toc-text">Notes on Papers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Title"><span class="toc-number">1.5.</span> <span class="toc-text">Title</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Deep-Neural-Networks"><span class="toc-number">1.5.1.</span> <span class="toc-text">1. Deep Neural Networks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Experimental-Setting-and-Datasets"><span class="toc-number">1.5.2.</span> <span class="toc-text">2. Experimental Setting and Datasets</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Effect-of-Activation-Functions-and-Saturation-During-Training"><span class="toc-number">1.5.3.</span> <span class="toc-text">3. Effect of Activation Functions and Saturation During Training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Studying-Gradients-and-their-Propagation"><span class="toc-number">1.5.4.</span> <span class="toc-text">4. Studying Gradients and their Propagation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Error-Curves-and-Conclusions"><span class="toc-number">1.5.5.</span> <span class="toc-text">5. Error Curves and Conclusions</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&text=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&is_video=false&description=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Notes on &#34;NLP with Pytorch&#34;-Ch6&body=Check out this article: http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&title=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&name=Notes on &#34;NLP with Pytorch&#34;-Ch6&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch6/&t=Notes on &#34;NLP with Pytorch&#34;-Ch6"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Wentao Kang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
