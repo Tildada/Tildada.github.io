@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Chapter5. Embedding Words and TypesDiscrete type? If discrete types are words, then the dense vector representation is called a word embedding.  count based(distributional representation) —- TF-IDFlea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes on &quot;NLP with Pytorch&quot;-Ch5">
+<meta property="og:url" content="http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/index.html">
+<meta property="og:site_name" content="Wentao&#39;s Blog">
+<meta property="og:description" content="Chapter5. Embedding Words and TypesDiscrete type? If discrete types are words, then the dense vector representation is called a word embedding.  count based(distributional representation) —- TF-IDFlea">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-30T02:43:54.000Z">
+<meta property="article:modified_time" content="2020-07-30T03:29:08.326Z">
+<meta property="article:author" content="Wentao Kang">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Notes on &#34;NLP with Pytorch&#34;-Ch5</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/07/30/hello-world/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&text=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&is_video=false&description=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Notes on &#34;NLP with Pytorch&#34;-Ch5&body=Check out this article: http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&name=Notes on &#34;NLP with Pytorch&#34;-Ch5&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&t=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter5-Embedding-Words-and-Types"><span class="toc-number">1.</span> <span class="toc-text">Chapter5. Embedding Words and Types</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Learn-Embeddings"><span class="toc-number">1.1.</span> <span class="toc-text">Why Learn Embeddings?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Practical-Use-of-Pretrained-Word-Embeddings"><span class="toc-number">1.1.1.</span> <span class="toc-text">The Practical Use of Pretrained Word Embeddings</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Learning-the-Continuous-Bag-of-Words-Embeddings"><span class="toc-number">1.2.</span> <span class="toc-text">Example: Learning the Continuous Bag of Words Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Prior-knowledge"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. Prior knowledge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CBOW%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. CBOW过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Model-Evaluation"><span class="toc-number">1.2.4.</span> <span class="toc-text">3.  Model Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Transfer-Learning-Using-Pretrained-Embeddings-for-Document-Classification"><span class="toc-number">1.3.</span> <span class="toc-text">Example:Transfer Learning Using Pretrained Embeddings for Document Classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notes-on-paper"><span class="toc-number">1.4.</span> <span class="toc-text">Notes on paper</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Title"><span class="toc-number">1.4.1.</span> <span class="toc-text">Title</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Related-Work-and-Preliminary"><span class="toc-number">1.4.2.</span> <span class="toc-text">Related Work and Preliminary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Geometry-of-Gender-and-Bias-in-Word-Embeddings"><span class="toc-number">1.4.3.</span> <span class="toc-text">Geometry of Gender and Bias in Word Embeddings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Determining-gender-neutral-words"><span class="toc-number">1.4.4.</span> <span class="toc-text">Determining gender neutral words</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Debiasing-algorithms"><span class="toc-number">1.4.5.</span> <span class="toc-text">Debiasing algorithms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Results-and-Discussion"><span class="toc-number">1.4.6.</span> <span class="toc-text">Results and Discussion</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Notes on &#34;NLP with Pytorch&#34;-Ch5
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wentao's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-30T02:43:54.000Z" itemprop="datePublished">2020-07-30</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Chapter5-Embedding-Words-and-Types"><a href="#Chapter5-Embedding-Words-and-Types" class="headerlink" title="Chapter5. Embedding Words and Types"></a>Chapter5. Embedding Words and Types</h1><p>Discrete type? If discrete types are words, then the dense vector representation is called a word embedding. </p>
+<p>count based(distributional representation) —- <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/Tf-idf">TF-IDF</a><br>learning based —- embedding</p>
+<p>Count?  Semantic learned by counting the co-occurrence frequency.<br>Predict?  Word vectors are learnt by trying to improve on the predictive ability (minimizing the loss between the target word and the context word).</p>
+<p>Embedding: A fundamental ingredient of the model itself.</p>
+<h2 id="Why-Learn-Embeddings"><a href="#Why-Learn-Embeddings" class="headerlink" title="Why Learn Embeddings?"></a>Why Learn Embeddings?</h2><p>Adventages of Low-dimensional<br>Efficiency: select the row indicated by the non zero entry.<br>All methods train with just words, but in a supervised fashion.<br>What can we learn in this Chapter?<br>How to load and look up? Properties and how to use it in tasks?</p>
+<h3 id="The-Practical-Use-of-Pretrained-Word-Embeddings"><a href="#The-Practical-Use-of-Pretrained-Word-Embeddings" class="headerlink" title="The Practical Use of Pretrained Word Embeddings"></a>The Practical Use of Pretrained Word Embeddings</h3><p>书中描述了一个实用工具类，即预训练。它在内存中构建所有单词向量的索引，以方便使用近似的最近邻包进行快速查找和最近邻查询。</p>
+<h2 id="Example-Learning-the-Continuous-Bag-of-Words-Embeddings"><a href="#Example-Learning-the-Continuous-Bag-of-Words-Embeddings" class="headerlink" title="Example: Learning the Continuous Bag of Words Embeddings"></a>Example: Learning the Continuous Bag of Words Embeddings</h2><p>Task: classification<br>Purpose: learning CBOW embeddings<br>Dataset: Frankenstein by Mary Shelley</p>
+<h3 id="1-Prior-knowledge"><a href="#1-Prior-knowledge" class="headerlink" title="1. Prior knowledge"></a>1. Prior knowledge</h3><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Word2vec">Word2Vec</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bag-of-words_model#CBOW">CBOW</a><br>Word2vec：神经网络模型——在给定无标签的语料库的情况下，为语料库中的单词产生一个能表达语义的向量。<br>CBOW模型：训练输入是某一个特征词的上下文相关的词对应的词向量，而输出就是这特定的一个词的词向量。</p>
+<h3 id="2-预处理"><a href="#2-预处理" class="headerlink" title="2. 预处理"></a>2. 预处理</h3><p>由txt生成一系列窗口，供后面CBOW使用，并划分出交叉验证测试集。<br>不熟的用法：<a target="_blank" rel="noopener" href="https://docs.python.org/3/library/re.html">re</a>正则表达式清洗数据，<a target="_blank" rel="noopener" href="https://tqdm.github.io/">tqdm库</a>（进度条）</p>
+<h3 id="3-CBOW过程"><a href="#3-CBOW过程" class="headerlink" title="3. CBOW过程"></a>3. CBOW过程</h3><p>(1) 整体结构和前两章大同小异</p>
+<p>(2) 有一些代码写法可以借鉴，比如求最大的序列长度</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">measure_len = <span class="keyword">lambda</span> context: len(context.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line">self._max_seq_length = max(map(measure_len, cbow_df.context))</span><br></pre></td></tr></table></figure>
+<p>(3) 关于serializable<br>① class Vocabulary中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@classmethod from_serializable()</span></span><br></pre></td></tr></table></figure>
+<p>即从一个序列化的字典(to_serializable返回的对象)中创建Vocabulary实例<br>def to_serializable(self): 返回dictionary cache<br>② class CBOWVectorizer中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@classmethod from_serializable(cls, contents)</span></span><br></pre></td></tr></table></figure>
+<p>return一个CBOWVectorizer实例，类初始化参数又contents提供，contents来自json.load读出的对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@classmethod to_serializable()</span></span><br></pre></td></tr></table></figure>
+<p>返回cbow_vocab<br>③ class CBOWDataset(Dataset)中：多种load/save方法。<br>总结：Dataset —- Vectorizer —- Vocabulary之间连成链的调用，即根据提供的元素，构建类的实例或者返回类中具体信息。很多类中其他函数，也是在前面定义好的其他类基础之上实现的。</p>
+<p>(4) yield的用法<br>可以参考这篇<a target="_blank" rel="noopener" href="https://pyzh.readthedocs.io/en/latest/the-python-yield-keyword-explained.html">文章</a>。<br>在 Python 中，使用了 yield 的函数被称为生成器(generator)。<br>生成器是一个返回迭代器的函数，只能用于迭代操作，生成器就是一个迭代器。<br>在调用生成器运行的过程中，每次遇到 yield 时函数会暂停并保存当前所有的运行信息，返回 yield 的值, 并在下一次执行 next() 方法时从当前位置继续运行。<br>调用一个生成器函数，返回的是一个迭代器对象。</p>
+<p>(5)与前面章节向量化使用one-hot等不同，CBOWVectorizer向量化后返回一个表示上下文index的整数向量。</p>
+<p>(6)The CBOW Classifier为上下文中的每个单词创建向量，接着对向量求和（However, other options include taking the max, the average, or even using a Multilayer Perceptron on top），计算y_predict</p>
+<h3 id="3-Model-Evaluation"><a href="#3-Model-Evaluation" class="headerlink" title="3.  Model Evaluation"></a>3.  Model Evaluation</h3><p>Acc: 15%.<br>Reasons: There are many properties of the original implementation that have been left out, book of 70,000 words is not enough data to identify many regularities.</p>
+<h2 id="Example-Transfer-Learning-Using-Pretrained-Embeddings-for-Document-Classification"><a href="#Example-Transfer-Learning-Using-Pretrained-Embeddings-for-Document-Classification" class="headerlink" title="Example:Transfer Learning Using Pretrained Embeddings for Document Classification"></a>Example:Transfer Learning Using Pretrained Embeddings for Document Classification</h2><p>Loading pretrained word embeddings, fine-tuning embeddings by classifying the titles, using CNN to capture the relationships between words.<br>即根据新闻标题的文本，预测该新闻从属的类别。</p>
+<p>Dataset: AG news</p>
+<p>Notes:<br>(1) Dataset是csv的格式，处理方法大致同前面章节的Restaurant Reviews相同。<br>(2) 有一个  SequenceVocabulary 类，相比Vocabulary类多了一些mask、unknown、begin_seq、end_seq的描述<br>(3) Embedding 可以直接在torch用: <a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/nn.html#sparse-layers">torch.nn.Embedding</a></p>
+<h2 id="Notes-on-paper"><a href="#Notes-on-paper" class="headerlink" title="Notes on paper"></a>Notes on paper</h2><h3 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h3><p>Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings</p>
+<h3 id="Related-Work-and-Preliminary"><a href="#Related-Work-and-Preliminary" class="headerlink" title="Related Work and Preliminary"></a>Related Work and Preliminary</h3><p>An implication of this effect is that language used by minority group might not be able to be<br>processed by natural language tools that are trained on “standard” data-sets. </p>
+<p>Solutions: entirely remove gender from the embedding or “fair” binary classiﬁcation based on legal traditions.</p>
+<p>gender spcific words/gender neutral words<br>How to measure similary? cos(u,v)</p>
+<h3 id="Geometry-of-Gender-and-Bias-in-Word-Embeddings"><a href="#Geometry-of-Gender-and-Bias-in-Word-Embeddings" class="headerlink" title="Geometry of Gender and Bias in Word Embeddings"></a>Geometry of Gender and Bias in Word Embeddings</h3><p>1)evaluate whether the embedding has stereotypes on occupation words and 2) evaluate whether the embedding produces analogies that are judged to reﬂect stereotypes by humans. </p>
+<p>Identifying the gender subspace:identify a gender direction/compute principal components (SVD)</p>
+<h3 id="Determining-gender-neutral-words"><a href="#Determining-gender-neutral-words" class="headerlink" title="Determining gender neutral words"></a>Determining gender neutral words</h3><p>(SVM) with regularization</p>
+<h3 id="Debiasing-algorithms"><a href="#Debiasing-algorithms" class="headerlink" title="Debiasing algorithms"></a>Debiasing algorithms</h3><p>1: Identify gender subspace<br>Identify a direction (subspace) : Capture the bias.<br>2a: Neutralize and Equalize (hard)<br>Neutralize: Gender neutral words: Zero in the gender subspace.<br>Equalize: Equalizes words outside the subspace: Neutral word is equidistant to all words in each equality set.<br>2b: Soft bias correction: Maintaining similarity to the original.</p>
+<h3 id="Results-and-Discussion"><a href="#Results-and-Discussion" class="headerlink" title="Results and Discussion"></a>Results and Discussion</h3><p>Hard:  Reduce both direct and indirect gender bias while preserving the utility.<br>Soft:  Balance reducing bias with preserving the original distances.</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter5-Embedding-Words-and-Types"><span class="toc-number">1.</span> <span class="toc-text">Chapter5. Embedding Words and Types</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Learn-Embeddings"><span class="toc-number">1.1.</span> <span class="toc-text">Why Learn Embeddings?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Practical-Use-of-Pretrained-Word-Embeddings"><span class="toc-number">1.1.1.</span> <span class="toc-text">The Practical Use of Pretrained Word Embeddings</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Learning-the-Continuous-Bag-of-Words-Embeddings"><span class="toc-number">1.2.</span> <span class="toc-text">Example: Learning the Continuous Bag of Words Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Prior-knowledge"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. Prior knowledge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CBOW%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. CBOW过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Model-Evaluation"><span class="toc-number">1.2.4.</span> <span class="toc-text">3.  Model Evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example-Transfer-Learning-Using-Pretrained-Embeddings-for-Document-Classification"><span class="toc-number">1.3.</span> <span class="toc-text">Example:Transfer Learning Using Pretrained Embeddings for Document Classification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Notes-on-paper"><span class="toc-number">1.4.</span> <span class="toc-text">Notes on paper</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Title"><span class="toc-number">1.4.1.</span> <span class="toc-text">Title</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Related-Work-and-Preliminary"><span class="toc-number">1.4.2.</span> <span class="toc-text">Related Work and Preliminary</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Geometry-of-Gender-and-Bias-in-Word-Embeddings"><span class="toc-number">1.4.3.</span> <span class="toc-text">Geometry of Gender and Bias in Word Embeddings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Determining-gender-neutral-words"><span class="toc-number">1.4.4.</span> <span class="toc-text">Determining gender neutral words</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Debiasing-algorithms"><span class="toc-number">1.4.5.</span> <span class="toc-text">Debiasing algorithms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Results-and-Discussion"><span class="toc-number">1.4.6.</span> <span class="toc-text">Results and Discussion</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&text=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&is_video=false&description=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Notes on &#34;NLP with Pytorch&#34;-Ch5&body=Check out this article: http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&title=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&name=Notes on &#34;NLP with Pytorch&#34;-Ch5&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/07/30/Notes-on-NLP-with-Pytorch-Ch5/&t=Notes on &#34;NLP with Pytorch&#34;-Ch5"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Wentao Kang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
