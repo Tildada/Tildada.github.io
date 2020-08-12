@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Hate Speech Detection with Comment Embeddings1.What are they trying to solve, and why?Previous related work:[1] extract linguistic and BOW[2] BOW+SVM[3] BOW+Naive BayesWhile BOW-based representation o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Papers about Hatespeech">
+<meta property="og:url" content="http://yoursite.com/2020/08/12/Papers-about-Hatespeech/index.html">
+<meta property="og:site_name" content="Wentao&#39;s Blog">
+<meta property="og:description" content="Hate Speech Detection with Comment Embeddings1.What are they trying to solve, and why?Previous related work:[1] extract linguistic and BOW[2] BOW+SVM[3] BOW+Naive BayesWhile BOW-based representation o">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-12T11:52:00.000Z">
+<meta property="article:modified_time" content="2020-08-12T12:59:37.254Z">
+<meta property="article:author" content="Wentao Kang">
+<meta property="article:tag" content="hatespeech">
+<meta property="article:tag" content="NLU">
+<meta property="article:tag" content="lit review">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Papers about Hatespeech</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/08/12/Notes-on-CS224U/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&text=Papers about Hatespeech"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&is_video=false&description=Papers about Hatespeech"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Papers about Hatespeech&body=Check out this article: http://yoursite.com/2020/08/12/Papers-about-Hatespeech/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&name=Papers about Hatespeech&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&t=Papers about Hatespeech"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hate-Speech-Detection-with-Comment-Embeddings"><span class="toc-number">1.</span> <span class="toc-text">Hate Speech Detection with Comment Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-are-they-trying-to-solve-and-why"><span class="toc-number">1.1.</span> <span class="toc-text">1.What are they trying to solve, and why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dateset"><span class="toc-number">1.2.</span> <span class="toc-text">2.Dateset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-to-solve-it"><span class="toc-number">1.3.</span> <span class="toc-text">3.How to solve it?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Model"><span class="toc-number">1.4.</span> <span class="toc-text">4.Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Evaluation"><span class="toc-number">1.5.</span> <span class="toc-text">5.Evaluation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Analyzing-the-Targets-of-Hate-in-Online-Social-Media"><span class="toc-number">2.</span> <span class="toc-text">Analyzing the Targets of Hate in Online Social Media</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-are-they-trying-to-solve-and-why-1"><span class="toc-number">2.1.</span> <span class="toc-text">1.What are they trying to solve, and why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset"><span class="toc-number">2.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How"><span class="toc-number">2.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis"><span class="toc-number">2.4.</span> <span class="toc-text">4.Analysis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Using-Convolutional-Neural-Networks-to-Classify-Hate-Speech"><span class="toc-number">3.</span> <span class="toc-text">Using Convolutional Neural Networks to Classify Hate-Speech</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-and-why"><span class="toc-number">3.1.</span> <span class="toc-text">1.What and why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-1"><span class="toc-number">3.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-1"><span class="toc-number">3.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion"><span class="toc-number">3.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Deep-Learning-for-Hate-Speech-Detection-in-Tweets"><span class="toc-number">4.</span> <span class="toc-text">Deep Learning for Hate Speech Detection in Tweets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What"><span class="toc-number">4.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-2"><span class="toc-number">4.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-2"><span class="toc-number">4.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion-1"><span class="toc-number">4.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Automated-Hate-Speech-Detection-and-the-Problem-of-Offensive-Language"><span class="toc-number">5.</span> <span class="toc-text">Automated Hate Speech Detection and the Problem of Offensive Language</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-1"><span class="toc-number">5.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-3"><span class="toc-number">5.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-3"><span class="toc-number">5.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Result%EF%82%B7"><span class="toc-number">5.4.</span> <span class="toc-text">4.Result</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-Risk-of-Racial-Bias-in-Hate-Speech-Detection"><span class="toc-number">6.</span> <span class="toc-text">The Risk of Racial Bias in Hate Speech Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-2"><span class="toc-number">6.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-How"><span class="toc-number">6.2.</span> <span class="toc-text">2.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Conclusion"><span class="toc-number">6.3.</span> <span class="toc-text">3.Conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Comparative-Studies-of-Detecting-Abusive-Language-on-Twitter"><span class="toc-number">7.</span> <span class="toc-text">Comparative Studies of Detecting Abusive Language on Twitter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-3"><span class="toc-number">7.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-4"><span class="toc-number">7.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-4"><span class="toc-number">7.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion-2"><span class="toc-number">7.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Predicting-the-Type-and-Target-of-Offensive-Posts-in-Social-Media"><span class="toc-number">8.</span> <span class="toc-text">Predicting the Type and Target of Offensive Posts in Social Media</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-4"><span class="toc-number">8.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-5"><span class="toc-number">8.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-5"><span class="toc-number">8.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion-3"><span class="toc-number">8.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-BERT-Based-Transfer-Learning-Approach-for-Hate-Speech-Detection-in-Online-Social-Media"><span class="toc-number">9.</span> <span class="toc-text">A BERT-Based Transfer Learning Approach for Hate Speech Detection in Online Social Media</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-5"><span class="toc-number">9.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Experiment"><span class="toc-number">9.2.</span> <span class="toc-text">2.Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Training"><span class="toc-number">9.2.1.</span> <span class="toc-text">Training</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Analysis"><span class="toc-number">9.3.</span> <span class="toc-text">3.Analysis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%80%9CThe-Enemy-Among-Us%E2%80%9D-Detecting-Cyber-Hate-Speech-with-Threats-based-Othering-Language-Embeddings"><span class="toc-number">10.</span> <span class="toc-text">“The Enemy Among Us”: Detecting Cyber Hate Speech with Threats-based Othering Language Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">10.1.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Extracting-Othering-Terms"><span class="toc-number">10.1.1.</span> <span class="toc-text">1.Extracting Othering Terms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Building-the-Othering-Feature-Set"><span class="toc-number">10.1.2.</span> <span class="toc-text">2.Building the Othering Feature Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Feature-Extraction"><span class="toc-number">10.1.3.</span> <span class="toc-text">3.Feature Extraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Machine-Classification"><span class="toc-number">10.1.4.</span> <span class="toc-text">4.Machine Classification</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Papers about Hatespeech
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wentao's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-12T11:52:00.000Z" itemprop="datePublished">2020-08-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/NLU/" rel="tag">NLU</a>, <a class="tag-link-link" href="/tags/hatespeech/" rel="tag">hatespeech</a>, <a class="tag-link-link" href="/tags/lit-review/" rel="tag">lit review</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Hate-Speech-Detection-with-Comment-Embeddings"><a href="#Hate-Speech-Detection-with-Comment-Embeddings" class="headerlink" title="Hate Speech Detection with Comment Embeddings"></a>Hate Speech Detection with Comment Embeddings</h1><h2 id="1-What-are-they-trying-to-solve-and-why"><a href="#1-What-are-they-trying-to-solve-and-why" class="headerlink" title="1.What are they trying to solve, and why?"></a>1.What are they trying to solve, and why?</h2><p>Previous related work:<br>[1] extract linguistic and BOW<br>[2] BOW+SVM<br>[3] BOW+Naive Bayes<br>While BOW-based representation of text do have limitations —&gt; high-dimensionality, large sparsity —&gt; overfitting</p>
+<h2 id="2-Dateset"><a href="#2-Dateset" class="headerlink" title="2.Dateset"></a>2.Dateset</h2><p>Collected from “Yahoo Finance website”  </p>
+<h2 id="3-How-to-solve-it"><a href="#3-How-to-solve-it" class="headerlink" title="3.How to solve it?"></a>3.How to solve it?</h2><p>Use low-dimensional, dis-tributed representations.</p>
+<h2 id="4-Model"><a href="#4-Model" class="headerlink" title="4.Model"></a>4.Model</h2><p>①paragraph2vec with CBOW<br>② embedding train binary classifier —&gt; hate/clean? </p>
+<h2 id="5-Evaluation"><a href="#5-Evaluation" class="headerlink" title="5.Evaluation"></a>5.Evaluation</h2><p>Wordcloud suggest the representation is meaningful<br>paragraph2vec(ACU) : 0.8007</p>
+<h1 id="Analyzing-the-Targets-of-Hate-in-Online-Social-Media"><a href="#Analyzing-the-Targets-of-Hate-in-Online-Social-Media" class="headerlink" title="Analyzing the Targets of Hate in Online Social Media"></a>Analyzing the Targets of Hate in Online Social Media</h1><h2 id="1-What-are-they-trying-to-solve-and-why-1"><a href="#1-What-are-they-trying-to-solve-and-why-1" class="headerlink" title="1.What are they trying to solve, and why?"></a>1.What are they trying to solve, and why?</h2><p>Providing a broader understanding of the phenomenon, and offering directions for prevention and detection approaches.</p>
+<h2 id="2-Dataset"><a href="#2-Dataset" class="headerlink" title="2.Dataset"></a>2.Dataset</h2><p>Whisper(27.55 million) and Twitter(512 million)</p>
+<h2 id="3-How"><a href="#3-How" class="headerlink" title="3.How?"></a>3.How?</h2><p>linguistic : sentence structure capture hate<br>structure: I &lt; intensity &gt;&lt; userintent &gt;&lt; hatetarget &gt;<br>&lt; intensity &gt;: qualiﬁers (e.g., adverbs) (if “don’t hate” then manually inspect and remove it)<br>&lt; user intent &gt; : ”hate” or synonyms of hate<br>&lt; hatetarget &gt;: “<one word> people” + Hatebase</p>
+<h2 id="4-Analysis"><a href="#4-Analysis" class="headerlink" title="4.Analysis"></a>4.Analysis</h2><p>After categorizing, we found<br>①top three hate categories: Race, behavior, and physical.<br>②More “soft” hate, suggests that perhaps hate online is different from documenting ofﬂine hate crimes.</p>
+<h1 id="Using-Convolutional-Neural-Networks-to-Classify-Hate-Speech"><a href="#Using-Convolutional-Neural-Networks-to-Classify-Hate-Speech" class="headerlink" title="Using Convolutional Neural Networks to Classify Hate-Speech"></a>Using Convolutional Neural Networks to Classify Hate-Speech</h1><h2 id="1-What-and-why"><a href="#1-What-and-why" class="headerlink" title="1.What and why?"></a>1.What and why?</h2><p>Previous work on the topic:<br>Sood et al.(2012): Ya-hoo! social news site, classification performance kept improving with increased datasets, but not as rapidly after the data size had passed 1,500 items. With the same dataset, Nobata et al.(2016) experimented with several different wordinternal.<br>On twitter: Xiang et al. (2012)offensive language clusters using Logistic Regression<br>Davidson et al.(2017) Logistic Regression + crowd-sourcing<br>Wulczyn et al. (2016) CrowdFlower Logistic Regression with character n-grams performed best</p>
+<h2 id="2-Dataset-1"><a href="#2-Dataset-1" class="headerlink" title="2.Dataset"></a>2.Dataset</h2><p>Tweets from Z. Waseem and D. Hovy. Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter. In NAACL-HLT, pages 88–93, 2016.</p>
+<h2 id="3-How-1"><a href="#3-How-1" class="headerlink" title="3.How?"></a>3.How?</h2><p>baseline: Logistic Regression with character n-grams(Waseem and Hovy, 2016)<br>CNN + random vectors/word2vc/Character n-grams/word2vc + character n-gram<br>tested by 10-fold cross-validation</p>
+<h2 id="4-Analysis-and-conclusion"><a href="#4-Analysis-and-conclusion" class="headerlink" title="4.Analysis and conclusion"></a>4.Analysis and conclusion</h2><p>Best performance: word2vec model without character n-grams F1:0.78<br>Error analysis: insufficient trainning instances, size of the dataset</p>
+<h1 id="Deep-Learning-for-Hate-Speech-Detection-in-Tweets"><a href="#Deep-Learning-for-Hate-Speech-Detection-in-Tweets" class="headerlink" title="Deep Learning for Hate Speech Detection in Tweets"></a>Deep Learning for Hate Speech Detection in Tweets</h1><h2 id="1-What"><a href="#1-What" class="headerlink" title="1.What?"></a>1.What?</h2><p>Classifying a tweet as racist, sexist or neither</p>
+<h2 id="2-Dataset-2"><a href="#2-Dataset-2" class="headerlink" title="2.Dataset"></a>2.Dataset</h2><p>16K annotated tweets from Z. Waseem and D. Hovy. Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter. In NAACL-HLT, pages 88–93, 2016.</p>
+<h2 id="3-How-2"><a href="#3-How-2" class="headerlink" title="3.How?"></a>3.How?</h2><p>Experiment with multiple classiﬁers:Logistic Regression, Random Forest, SVMs, GBDTs and DNNs<br>Feature spaces deﬁned by task-speciﬁc embeddings learned using FastText, CNNs, LSTMs<br>Baselines: char n-grams, TF-IDF vectors, BoWV</p>
+<h2 id="4-Analysis-and-conclusion-1"><a href="#4-Analysis-and-conclusion-1" class="headerlink" title="4.Analysis and conclusion"></a>4.Analysis and conclusion</h2><p>Best performance: LSTM+Random Embedding+GBDT  F1: 0.930</p>
+<h1 id="Automated-Hate-Speech-Detection-and-the-Problem-of-Offensive-Language"><a href="#Automated-Hate-Speech-Detection-and-the-Problem-of-Offensive-Language" class="headerlink" title="Automated Hate Speech Detection and the Problem of Offensive Language"></a>Automated Hate Speech Detection and the Problem of Offensive Language</h1><h2 id="1-What-1"><a href="#1-What-1" class="headerlink" title="1.What?"></a>1.What?</h2><p>Key challeng: separation of hate speech from offensive language<br>Hate speech definition: hate speech defined as speech that targets minority groups in a way that could promote violence or social disorder.<br>Previous work: tend to conflate commonplace offensive language and serious hate speech (people often use terms that are highly offensive to certain groups but in a qualitatively different manner)</p>
+<h2 id="2-Dataset-3"><a href="#2-Dataset-3" class="headerlink" title="2.Dataset"></a>2.Dataset</h2><p>①A hate speech lexicon containing words and phrases identified by internet users as hate speech.<br>②Labeled tweets (Notice: Most tweets containing “hate” words as defined by Hatebase were only considered to be offensive by the CF coders. )<br>③Result of manual coding: 5% hate-speech and 76% offensive</p>
+<h2 id="3-How-3"><a href="#3-How-3" class="headerlink" title="3.How?"></a>3.How?</h2><p>Tested a variety of models that have been used in prior work: logistic regression, naive Bayes, decision trees, random forests, and linear SVMs.<br>Found that the Logistic Regression and Linear SVM tended to perform significantly better than other models.<br>Used a logistic regression with L2 regularization for the final model.</p>
+<h2 id="4-Result"><a href="#4-Result" class="headerlink" title="4.Result"></a>4.Result</h2><p>Precision, recall and f1-score reach 0.9<br>Almost 40% of hate speech is misclassified,model is biased towards classifying tweets as less hateful or offensive than the human coders</p>
+<h1 id="The-Risk-of-Racial-Bias-in-Hate-Speech-Detection"><a href="#The-Risk-of-Racial-Bias-in-Hate-Speech-Detection" class="headerlink" title="The Risk of Racial Bias in Hate Speech Detection"></a>The Risk of Racial Bias in Hate Speech Detection</h1><h2 id="1-What-2"><a href="#1-What-2" class="headerlink" title="1.What?"></a>1.What?</h2><p>· ML models are generally trained on text-only annotations and don’t have information about the speaker.<br>· Current datasets ignore social context of speech, like - identity of speaker, dialect of English.<br>· Ignoring these nuances risks harming minority populations by suppressing inoffensive speech.</p>
+<h2 id="2-How"><a href="#2-How" class="headerlink" title="2.How?"></a>2.How?</h2><p>Racial bias present in several widely used Twitter corpora annotated for toxic content, and quantify the propagation of this bias through models trained on them.<br>African American English (AAE) dialect(Lexical detector by (Blodgett et al., 2016) ) is used in the paper.<br>A held-out set broken down by dialect group was used to assess the performance of these classifiers by counting the number of mistakes made. Minimization of the cross-entropy of the annotated class conditional on text.<br>How to reduce the bias? Changing the task of annotation.</p>
+<h2 id="3-Conclusion"><a href="#3-Conclusion" class="headerlink" title="3.Conclusion"></a>3.Conclusion</h2><p>Annotators are substantially more likely to rate a tweet as being offensive to someone, than to rate it as offensive to themselves<br>In general, hate speech language is highly subjective and contextual. Factors like slang, dialects, slurs, etc must be taken into consideration.</p>
+<h1 id="Comparative-Studies-of-Detecting-Abusive-Language-on-Twitter"><a href="#Comparative-Studies-of-Detecting-Abusive-Language-on-Twitter" class="headerlink" title="Comparative Studies of Detecting Abusive Language on Twitter"></a>Comparative Studies of Detecting Abusive Language on Twitter</h1><h2 id="1-What-3"><a href="#1-What-3" class="headerlink" title="1.What?"></a>1.What?</h2><p>Comprehensively study the dataset to its potential: conduct the first comparative study of various learning models on it and discuss the possibility of using additional features and context data for improvements.</p>
+<h2 id="2-Dataset-4"><a href="#2-Dataset-4" class="headerlink" title="2.Dataset"></a>2.Dataset</h2><p>Hate and Abusive Speech on Twitter (Founta et al.,2018) classifies tweets into 4 labels, “normal”,“spam”(垃圾邮件), “hateful” and “abusive”<br>之前读到的Djuric et al.(2015)、Gambäck et al.(2017)、Silva et al.(2016)等分类相对简单（binary classification），而上星期论文中已经有了offensive和hate speech相对分明界限的定义（数据集经过人工标注，且offensive 和 hate的区分也是一个难点）。这次的dataset更加丰富了，查看了原论文，他们给出了方法annotating a large-scale dataset of inappropriate speech and the resulting labeled dataset,这其中包括Offensive Language/Abusive Language/Hate Speech/Aggressive Behavior/Cyberbullying Behavior，经过多轮最后将所有Tweets分为normal/spam/abusive/hateful</p>
+<h2 id="3-How-4"><a href="#3-How-4" class="headerlink" title="3.How?"></a>3.How?</h2><p>Context tweets：  CNN: maxpooled layers / RNN：last hidden states<br>· Data Preprocessing： hashtags =&gt; segmentation library     character-level representations =&gt;one-hot encoded vectors<br>· Training ：10-fold cross validation， 85:5:10<br>· Model：NB/LR/SVM/RF/GBT/CNN/RNN<br>Best performance: bidirectional GRU networks with LTC</p>
+<h2 id="4-Analysis-and-conclusion-2"><a href="#4-Analysis-and-conclusion-2" class="headerlink" title="4.Analysis and conclusion"></a>4.Analysis and conclusion</h2><p>· Character-level features:  reduce classification accuracy when using neural network models（the lack of labeled data as well as the significant imbalance<br>among the different labels）/ positive results when using ML classifiers<br>· Results still need further improvements</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/younggns/comparative-abusive-lang">github repository</a></p>
+<h1 id="Predicting-the-Type-and-Target-of-Offensive-Posts-in-Social-Media"><a href="#Predicting-the-Type-and-Target-of-Offensive-Posts-in-Social-Media" class="headerlink" title="Predicting the Type and Target of Offensive Posts in Social Media"></a>Predicting the Type and Target of Offensive Posts in Social Media</h1><h2 id="1-What-4"><a href="#1-What-4" class="headerlink" title="1.What?"></a>1.What?</h2><p>No prior work has explored the target of the offensive language</p>
+<h2 id="2-Dataset-5"><a href="#2-Dataset-5" class="headerlink" title="2.Dataset"></a>2.Dataset</h2><p>OLID  Twitter API : searching for keywords and constructions that are often included in offensive messages + manually labeled</p>
+<h2 id="3-How-5"><a href="#3-How-5" class="headerlink" title="3.How?"></a>3.How?</h2><p>Proposing a novel three-level hierarchical annotation schema =&gt; Using it to create Offensive Language Identification Dataset (OLID) =&gt; Performing experiments<br>Tree:<br>· Level A: Offensive language Detection =&gt; Not Offensive (NOT) / Offensive (OFF)<br>· IF OFF: Level B: Categorization of Offensive Language =&gt; Targeted Insult (TIN)/Untargeted (UNT)<br>· IF TIN: Level C: Offensive Language Target Identification=&gt; Individual (IND)/ Group (GRP)/ Other (OTH)</p>
+<h2 id="4-Analysis-and-conclusion-3"><a href="#4-Analysis-and-conclusion-3" class="headerlink" title="4.Analysis and conclusion"></a>4.Analysis and conclusion</h2><p>Best performance: CNN</p>
+<h1 id="A-BERT-Based-Transfer-Learning-Approach-for-Hate-Speech-Detection-in-Online-Social-Media"><a href="#A-BERT-Based-Transfer-Learning-Approach-for-Hate-Speech-Detection-in-Online-Social-Media" class="headerlink" title="A BERT-Based Transfer Learning Approach for Hate Speech Detection in Online Social Media"></a>A BERT-Based Transfer Learning Approach for Hate Speech Detection in Online Social Media</h1><h2 id="1-What-5"><a href="#1-What-5" class="headerlink" title="1.What?"></a>1.What?</h2><p>· Evaluate the effect of different fine-tuning strategies on embedding layers of BERT in hate speech detection.<br>· Detect some biases in the process of collecting or annotating datasets. </p>
+<h2 id="2-Experiment"><a href="#2-Experiment" class="headerlink" title="2.Experiment"></a>2.Experiment</h2><p>· Datasets: Wasee &amp; Hovey &amp; Davidson et al.<br>· Pre-Processing:Replace mentions with tokens / Convert elongated words into short format / Remove special marks / Hashtags replace with textual counterparts / Keep stop words / All words : lower case</p>
+<h3 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h3><p>Evaluate the effect of different fine-tuning strategies<br>Input: BertWordPiece for tokenizer / maxlength = 64<br>A batch size of 32 for 3 epochs<br>Dropput: 0.1<br>Optimizer: Adam, learning rate =  2e-5<br>Train/Val/Test split: 8:1:1</p>
+<h2 id="3-Analysis"><a href="#3-Analysis" class="headerlink" title="3.Analysis"></a>3.Analysis</h2><p>Best method: BERT base + CNN<br>Although the dataset may have bias because of the process of collecting, Bert, which is trained on general corpora, is like to differentiate hate and offensive samples with high accuracy.</p>
+<h1 id="“The-Enemy-Among-Us”-Detecting-Cyber-Hate-Speech-with-Threats-based-Othering-Language-Embeddings"><a href="#“The-Enemy-Among-Us”-Detecting-Cyber-Hate-Speech-with-Threats-based-Othering-Language-Embeddings" class="headerlink" title="“The Enemy Among Us”: Detecting Cyber Hate Speech with Threats-based Othering Language Embeddings"></a>“The Enemy Among Us”: Detecting Cyber Hate Speech with Threats-based Othering Language Embeddings</h1><p>How language is used to convey hateful sentiment? “Othering”</p>
+<h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>· Theory: Including a layer of linguistic features representing othering within short informal text =&gt; the co-occurrence of in-group/out-group pronouns as a two-sided pronoun<br>· Datasets: Davidson et al as Training/ Pete Burnap et al as Testing<br>· Methods: a constrained subset of dependency relationship labels/ parts of speech with othering/ a list of pronouns</p>
+<h3 id="1-Extracting-Othering-Terms"><a href="#1-Extracting-Othering-Terms" class="headerlink" title="1.Extracting Othering Terms"></a>1.Extracting Othering Terms</h3><p>Using Stanford Typed Dependency Parser </p>
+<h3 id="2-Building-the-Othering-Feature-Set"><a href="#2-Building-the-Othering-Feature-Set" class="headerlink" title="2.Building the Othering Feature Set"></a>2.Building the Othering Feature Set</h3><p>for each sample containing two sided pronoun do<br>    Extract  (pronoun, Typed Dependency, POS)<br>    Append into Set</p>
+<h3 id="3-Feature-Extraction"><a href="#3-Feature-Extraction" class="headerlink" title="3.Feature Extraction"></a>3.Feature Extraction</h3><p>Paragraph2Vec/PV-DM</p>
+<h3 id="4-Machine-Classification"><a href="#4-Machine-Classification" class="headerlink" title="4.Machine Classification"></a>4.Machine Classification</h3><p>Best performance: Paragraph2Vec+MLP<br>ALSO: the paper tested on unseen data using four different types of cyberhate,  religion, disability, race, and sexual orientation</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hate-Speech-Detection-with-Comment-Embeddings"><span class="toc-number">1.</span> <span class="toc-text">Hate Speech Detection with Comment Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-are-they-trying-to-solve-and-why"><span class="toc-number">1.1.</span> <span class="toc-text">1.What are they trying to solve, and why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dateset"><span class="toc-number">1.2.</span> <span class="toc-text">2.Dateset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-to-solve-it"><span class="toc-number">1.3.</span> <span class="toc-text">3.How to solve it?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Model"><span class="toc-number">1.4.</span> <span class="toc-text">4.Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Evaluation"><span class="toc-number">1.5.</span> <span class="toc-text">5.Evaluation</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Analyzing-the-Targets-of-Hate-in-Online-Social-Media"><span class="toc-number">2.</span> <span class="toc-text">Analyzing the Targets of Hate in Online Social Media</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-are-they-trying-to-solve-and-why-1"><span class="toc-number">2.1.</span> <span class="toc-text">1.What are they trying to solve, and why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset"><span class="toc-number">2.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How"><span class="toc-number">2.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis"><span class="toc-number">2.4.</span> <span class="toc-text">4.Analysis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Using-Convolutional-Neural-Networks-to-Classify-Hate-Speech"><span class="toc-number">3.</span> <span class="toc-text">Using Convolutional Neural Networks to Classify Hate-Speech</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-and-why"><span class="toc-number">3.1.</span> <span class="toc-text">1.What and why?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-1"><span class="toc-number">3.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-1"><span class="toc-number">3.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion"><span class="toc-number">3.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Deep-Learning-for-Hate-Speech-Detection-in-Tweets"><span class="toc-number">4.</span> <span class="toc-text">Deep Learning for Hate Speech Detection in Tweets</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What"><span class="toc-number">4.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-2"><span class="toc-number">4.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-2"><span class="toc-number">4.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion-1"><span class="toc-number">4.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Automated-Hate-Speech-Detection-and-the-Problem-of-Offensive-Language"><span class="toc-number">5.</span> <span class="toc-text">Automated Hate Speech Detection and the Problem of Offensive Language</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-1"><span class="toc-number">5.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-3"><span class="toc-number">5.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-3"><span class="toc-number">5.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Result%EF%82%B7"><span class="toc-number">5.4.</span> <span class="toc-text">4.Result</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#The-Risk-of-Racial-Bias-in-Hate-Speech-Detection"><span class="toc-number">6.</span> <span class="toc-text">The Risk of Racial Bias in Hate Speech Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-2"><span class="toc-number">6.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-How"><span class="toc-number">6.2.</span> <span class="toc-text">2.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Conclusion"><span class="toc-number">6.3.</span> <span class="toc-text">3.Conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Comparative-Studies-of-Detecting-Abusive-Language-on-Twitter"><span class="toc-number">7.</span> <span class="toc-text">Comparative Studies of Detecting Abusive Language on Twitter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-3"><span class="toc-number">7.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-4"><span class="toc-number">7.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-4"><span class="toc-number">7.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion-2"><span class="toc-number">7.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Predicting-the-Type-and-Target-of-Offensive-Posts-in-Social-Media"><span class="toc-number">8.</span> <span class="toc-text">Predicting the Type and Target of Offensive Posts in Social Media</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-4"><span class="toc-number">8.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Dataset-5"><span class="toc-number">8.2.</span> <span class="toc-text">2.Dataset</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-How-5"><span class="toc-number">8.3.</span> <span class="toc-text">3.How?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Analysis-and-conclusion-3"><span class="toc-number">8.4.</span> <span class="toc-text">4.Analysis and conclusion</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-BERT-Based-Transfer-Learning-Approach-for-Hate-Speech-Detection-in-Online-Social-Media"><span class="toc-number">9.</span> <span class="toc-text">A BERT-Based Transfer Learning Approach for Hate Speech Detection in Online Social Media</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-5"><span class="toc-number">9.1.</span> <span class="toc-text">1.What?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Experiment"><span class="toc-number">9.2.</span> <span class="toc-text">2.Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Training"><span class="toc-number">9.2.1.</span> <span class="toc-text">Training</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Analysis"><span class="toc-number">9.3.</span> <span class="toc-text">3.Analysis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%80%9CThe-Enemy-Among-Us%E2%80%9D-Detecting-Cyber-Hate-Speech-with-Threats-based-Othering-Language-Embeddings"><span class="toc-number">10.</span> <span class="toc-text">“The Enemy Among Us”: Detecting Cyber Hate Speech with Threats-based Othering Language Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Experiment"><span class="toc-number">10.1.</span> <span class="toc-text">Experiment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Extracting-Othering-Terms"><span class="toc-number">10.1.1.</span> <span class="toc-text">1.Extracting Othering Terms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Building-the-Othering-Feature-Set"><span class="toc-number">10.1.2.</span> <span class="toc-text">2.Building the Othering Feature Set</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Feature-Extraction"><span class="toc-number">10.1.3.</span> <span class="toc-text">3.Feature Extraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Machine-Classification"><span class="toc-number">10.1.4.</span> <span class="toc-text">4.Machine Classification</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&text=Papers about Hatespeech"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&is_video=false&description=Papers about Hatespeech"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Papers about Hatespeech&body=Check out this article: http://yoursite.com/2020/08/12/Papers-about-Hatespeech/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&title=Papers about Hatespeech"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&name=Papers about Hatespeech&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2020/08/12/Papers-about-Hatespeech/&t=Papers about Hatespeech"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    Wentao Kang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
