@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="一、解决了什么问题对于实体关系的重叠问题，有两种方法。entity-guided，先找主体，再基于此主体找相应客体和关系。relation-guided，先找句子中有的关系，因为通过句子的上下文能够直接得到的，一般是关系，而不是实体（For example, descriptions like ‘was born in‘ in the sentence will directly lead to">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lit review &quot;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&quot;">
+<meta property="og:url" content="http://yoursite.com/2021/02/01/lit-review-RSAN/index.html">
+<meta property="og:site_name" content="Wentao&#39;s Blog">
+<meta property="og:description" content="一、解决了什么问题对于实体关系的重叠问题，有两种方法。entity-guided，先找主体，再基于此主体找相应客体和关系。relation-guided，先找句子中有的关系，因为通过句子的上下文能够直接得到的，一般是关系，而不是实体（For example, descriptions like ‘was born in‘ in the sentence will directly lead to">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/rsan_pic1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/rsan_pic2.jpg">
+<meta property="og:image" content="http://yoursite.com/images/rsan_pic3.jpg">
+<meta property="article:published_time" content="2021-02-01T13:32:00.000Z">
+<meta property="article:modified_time" content="2021-02-01T13:49:07.911Z">
+<meta property="article:author" content="Wentao Kang">
+<meta property="article:tag" content="lit review">
+<meta property="article:tag" content="Relation Extraction">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/rsan_pic1.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/02/01/lit-review-CASREL/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/08/12/Papers-about-Hatespeech/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/01/lit-review-RSAN/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&text=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&is_video=false&description=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;&body=Check out this article: http://yoursite.com/2021/02/01/lit-review-RSAN/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&name=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/01/lit-review-RSAN/&t=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">一、解决了什么问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.</span> <span class="toc-text">二、如何解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Training"><span class="toc-number">2.2.</span> <span class="toc-text">Training:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E6%9E%90%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text">三、分析结论</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wentao's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-01T13:32:00.000Z" itemprop="datePublished">2021-02-01</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Relation-Extraction/" rel="tag">Relation Extraction</a>, <a class="tag-link-link" href="/tags/lit-review/" rel="tag">lit review</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="一、解决了什么问题"><a href="#一、解决了什么问题" class="headerlink" title="一、解决了什么问题"></a>一、解决了什么问题</h1><p>对于实体关系的重叠问题，有两种方法。entity-guided，先找主体，再基于此主体找相应客体和关系。relation-guided，先找句子中有的关系，因为通过句子的上下文能够直接得到的，一般是关系，而不是实体（For example, descriptions like ‘was born in‘ in the sentence will directly lead to the “place of birth” relation）。因此若将关系信息作为先验知识引入，可减少模型对不相关实体的注意。而在之前的relation-guided模型中，对关系和词之间的细粒度的语义联系关注不够。</p>
+<h1 id="二、如何解决"><a href="#二、如何解决" class="headerlink" title="二、如何解决"></a>二、如何解决</h1><p>Tagging Scheme：BIES + H表示头，T表示尾，关系重叠时遵循最近原则，即最近的头尾实体将被组合成一个关系对<br><img src="/images/rsan_pic1.jpg" alt="alt"><br>For different given relations, we will generate a specific tag sequence for each of them.<br><img src="/images/rsan_pic2.jpg" alt="alt"></p>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>Encoder: word emb + pos emb + char emb –&gt; BiLSTM<br>Relation-Based Attention Mechanism:在不同的关系类型下，词对句子的语义表达应该有着不同的贡献。使用Attention为句子中与当下关系相关的词赋予更高权重。对第k个关系，对于句子中的第i个词，attention会融合当前词语表示hi，sg句子表示sg，关系表示rk。第k个关系下的句子表示sk由句子中词的加权和得到。<br>Relational Gated Mechanism：自适应地控制Attention层提供的关系信息。gk表示留下多少信息。最终句子中的第i个词表示为hki。<br><img src="/images/rsan_pic3.jpg" alt="alt"><br>Relation-Speciﬁc Entity Decoder：BiLSTM + Softmax解码。</p>
+<h2 id="Training"><a href="#Training" class="headerlink" title="Training:"></a>Training:</h2><p>如果训练过程中对所有给定关系进行实体解码，会存在大量的负样本。提出了relation-level negative sampling，避免了大部分冗余的解码过程。随机选nnge个当前句子不存在的关系当作负样本，负样本中所有的单词都将被标记为标签O。如果一个句子有nsp个positive relations，那么就会对这个句子进行nsp + nneg次序列标注。</p>
+<h1 id="三、分析结论"><a href="#三、分析结论" class="headerlink" title="三、分析结论"></a>三、分析结论</h1><ol>
+<li>pos emb可为句子提供额外语法信息。</li>
+<li>char emb对OOV有帮助。</li>
+<li>将relation-based attention改为直接使用一个relation embedding，即直接用relation embedding作为实体识别的先验信息。模型表现下降。作者认为，relation embedding为实体识别只提供了非常简单且浅层的联系信息，导致关系对预测数量更多、精度降低。</li>
+<li>取消relational gate后表现下降，说明门机制可以降低实体识别过程中不相关关系带来的噪声。</li>
+<li>nneg选择：构建更多的负样本可以使模型更鲁棒，但随着迭代次数的增加，句子所有的负关系最终几乎都会被覆盖到。考虑到速度和模型泛化能力的平衡，经过实验，最终nneg的值为4。</li>
+<li>分别同其他模型做对比实验，测试模型在复杂语言环境下（overlapping情况和句中三元组数目较多）的抽取能力。</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">一、解决了什么问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.</span> <span class="toc-text">二、如何解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.1.</span> <span class="toc-text">模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Training"><span class="toc-number">2.2.</span> <span class="toc-text">Training:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E6%9E%90%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text">三、分析结论</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/01/lit-review-RSAN/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&text=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&is_video=false&description=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;&body=Check out this article: http://yoursite.com/2021/02/01/lit-review-RSAN/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&title=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/01/lit-review-RSAN/&name=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/01/lit-review-RSAN/&t=lit review &#34;A Relation-Speciﬁc Attention Network for Joint Entity and Relation Extraction&#34;"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Wentao Kang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
