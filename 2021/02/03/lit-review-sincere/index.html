@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="A Quick Literature ReviewLocal classifiers使用全局的约束，将NER和RE结合。比如“Live In”的关系必须在一个人和一个地点之间。 Incremental Joint Training使用感知器解析句子、加入 handcrafted features、填表法、依存句法等。  Entity Filtering关系抽取被看作是给定句子和实体对情况下的分类问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lit review &quot;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&quot;">
+<meta property="og:url" content="http://yoursite.com/2021/02/03/lit-review-sincere/index.html">
+<meta property="og:site_name" content="Wentao&#39;s Blog">
+<meta property="og:description" content="A Quick Literature ReviewLocal classifiers使用全局的约束，将NER和RE结合。比如“Live In”的关系必须在一个人和一个地点之间。 Incremental Joint Training使用感知器解析句子、加入 handcrafted features、填表法、依存句法等。  Entity Filtering关系抽取被看作是给定句子和实体对情况下的分类问">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-03T00:59:57.000Z">
+<meta property="article:modified_time" content="2021-02-03T01:04:12.149Z">
+<meta property="article:author" content="Wentao Kang">
+<meta property="article:tag" content="lit review">
+<meta property="article:tag" content="Relation Extraction">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/02/03/lit-review-SpERT/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/03/lit-review-sincere/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/03/lit-review-sincere/&text=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/03/lit-review-sincere/&is_video=false&description=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;&body=Check out this article: http://yoursite.com/2021/02/03/lit-review-sincere/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/03/lit-review-sincere/&name=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/03/lit-review-sincere/&t=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A-Quick-Literature-Review"><span class="toc-number">1.</span> <span class="toc-text">A Quick Literature Review</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-classifiers"><span class="toc-number">1.1.</span> <span class="toc-text">Local classifiers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Joint-Training"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Joint Training</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Entity-Filtering"><span class="toc-number">1.3.</span> <span class="toc-text">Entity Filtering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multi-Head-Selection"><span class="toc-number">1.4.</span> <span class="toc-text">Multi-Head Selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Span-level-NER"><span class="toc-number">1.5.</span> <span class="toc-text">Span-level NER</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Question-Answering"><span class="toc-number">1.6.</span> <span class="toc-text">Question Answering</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Datasets-and-Metrics"><span class="toc-number">2.</span> <span class="toc-text">Datasets and Metrics</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Datasets"><span class="toc-number">2.1.</span> <span class="toc-text">Datasets:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Metrics"><span class="toc-number">2.2.</span> <span class="toc-text">Metrics:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E4%B8%AA%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">三个评价标准：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Identified-Issues-in-Published-Results"><span class="toc-number">2.4.</span> <span class="toc-text">Identified Issues in Published Results</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-Small-Empirical-Study"><span class="toc-number">3.</span> <span class="toc-text">A Small Empirical Study</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boundaries-setting-OR-Strict-setting"><span class="toc-number">3.1.</span> <span class="toc-text">Boundaries setting OR Strict setting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-BiLSTM-vs-BERT"><span class="toc-number">3.2.</span> <span class="toc-text">Encoder : BiLSTM vs BERT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NER-Decoder-BILOU-vs-Span"><span class="toc-number">3.3.</span> <span class="toc-text">NER Decoder : BILOU vs Span</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#How-to-Prevent-Future-Mistakes"><span class="toc-number">4.</span> <span class="toc-text">How to Prevent Future Mistakes?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reproducibility-amp-Complete-Reports"><span class="toc-number">4.1.</span> <span class="toc-text">Reproducibility  &amp; Complete Reports</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-Unified-Evaluation-Setting"><span class="toc-number">4.2.</span> <span class="toc-text">A Unified Evaluation Setting</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wentao's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-03T00:59:57.000Z" itemprop="datePublished">2021-02-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Relation-Extraction/" rel="tag">Relation Extraction</a>, <a class="tag-link-link" href="/tags/lit-review/" rel="tag">lit review</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="A-Quick-Literature-Review"><a href="#A-Quick-Literature-Review" class="headerlink" title="A Quick Literature Review"></a>A Quick Literature Review</h1><h2 id="Local-classifiers"><a href="#Local-classifiers" class="headerlink" title="Local classifiers"></a>Local classifiers</h2><p>使用全局的约束，将NER和RE结合。比如“Live In”的关系必须在一个人和一个地点之间。</p>
+<h2 id="Incremental-Joint-Training"><a href="#Incremental-Joint-Training" class="headerlink" title="Incremental Joint Training"></a>Incremental Joint Training</h2><p>使用感知器解析句子、加入 handcrafted features、填表法、依存句法等。 </p>
+<h2 id="Entity-Filtering"><a href="#Entity-Filtering" class="headerlink" title="Entity Filtering"></a>Entity Filtering</h2><p>关系抽取被看作是给定句子和实体对情况下的分类问题，通常会使用BiLSTM编码，NER和RE模型共享参数。</p>
+<h2 id="Multi-Head-Selection"><a href="#Multi-Head-Selection" class="headerlink" title="Multi-Head Selection"></a>Multi-Head Selection</h2><p>Bekoulis et al. (2018)，多头选择，对每一对词进行RE分类。端到端模型使得句子可一次通过模型得到结果，但这也要求词的表示必须包含全部上下文信息（since the Linear RE classifier is only fed with representations of both arguments and a label embedding of BILOU NER predictions）</p>
+<h2 id="Span-level-NER"><a href="#Span-level-NER" class="headerlink" title="Span-level NER"></a>Span-level NER</h2><p>Span-level classification spired by end-to-end CR and Semantic Role Labeling (SRL)，更容易处理重叠实体问题 </p>
+<h2 id="Question-Answering"><a href="#Question-Answering" class="headerlink" title="Question Answering"></a>Question Answering</h2><p>多轮问答找实体和关系</p>
+<h1 id="Datasets-and-Metrics"><a href="#Datasets-and-Metrics" class="headerlink" title="Datasets and Metrics"></a>Datasets and Metrics</h1><h2 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets:"></a>Datasets:</h2><p>CoNLL04 / ACE04 / ACE05 / ADE / SciERC</p>
+<h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics:"></a>Metrics:</h2><p>Precision, Recall and F1 scores</p>
+<h2 id="三个评价标准："><a href="#三个评价标准：" class="headerlink" title="三个评价标准："></a>三个评价标准：</h2><p>Strict: 边界和实体类型都须正确<br>Boundaries: 实体类型无需考虑，边界须正确<br>Relaxed: NER被简化为Entity Classification，即为每个token预测一个类型，一个多token的实体，只要有一个token类型判断正确，即为正确</p>
+<h2 id="Identified-Issues-in-Published-Results"><a href="#Identified-Issues-in-Published-Results" class="headerlink" title="Identified Issues in Published Results"></a>Identified Issues in Published Results</h2><ol>
+<li>在不同评价标准之间比较，难以证明结论的有效。</li>
+<li>使用不同的setting，比如丢弃“Other”实体类型、使用不同的train / test split、不同的Metrics。</li>
+<li>是否使用验证集作为额外的训练数据。如果论文中没有给出完整的数据集统计数据，就无法检查数据的完整性。在不同论文中，对同一数据集的句子、实体、关系数量统计存在差异。</li>
+</ol>
+<h1 id="A-Small-Empirical-Study"><a href="#A-Small-Empirical-Study" class="headerlink" title="A Small Empirical Study"></a>A Small Empirical Study</h1><p>It is difficult to draw general conclusions beyond the now established improvements due to LM pretraining.<br>Baseline: Spert<br>Benchmarks: CoNLL04 and ACE05</p>
+<h2 id="Boundaries-setting-OR-Strict-setting"><a href="#Boundaries-setting-OR-Strict-setting" class="headerlink" title="Boundaries setting OR Strict setting"></a>Boundaries setting OR Strict setting</h2><p>ACE05: Boundaries F1高了2.5到3个点<br>CoNLL04: 几乎没有影响<br>可能的解释：实体类型的数量不同。映射的复杂程度不同。In CoNLL04 there is a bijective mapping between a relation type and the ordered types of its arguments. On the contrary on ACE05, this mapping is much more complex (e.g.the relation PART-WHOLE fits 9 pairs of types 4)</p>
+<h2 id="Encoder-BiLSTM-vs-BERT"><a href="#Encoder-BiLSTM-vs-BERT" class="headerlink" title="Encoder : BiLSTM vs BERT"></a>Encoder : BiLSTM vs BERT</h2><p>The empirical gains mainly come from using BERT, which allows the use of simpler decoders for both NER and RE. </p>
+<h2 id="NER-Decoder-BILOU-vs-Span"><a href="#NER-Decoder-BILOU-vs-Span" class="headerlink" title="NER Decoder : BILOU vs Span"></a>NER Decoder : BILOU vs Span</h2><p>尽管Span被认为更适合处理重叠问题，但较少有人探讨过其在处理非重叠情况时的效果。实验表明，与更经典的序列标记方法相比，Span并没有表现更好。</p>
+<h1 id="How-to-Prevent-Future-Mistakes"><a href="#How-to-Prevent-Future-Mistakes" class="headerlink" title="How to Prevent Future Mistakes?"></a>How to Prevent Future Mistakes?</h1><h2 id="Reproducibility-amp-Complete-Reports"><a href="#Reproducibility-amp-Complete-Reports" class="headerlink" title="Reproducibility  &amp; Complete Reports"></a>Reproducibility  &amp; Complete Reports</h2><h2 id="A-Unified-Evaluation-Setting"><a href="#A-Unified-Evaluation-Setting" class="headerlink" title="A Unified Evaluation Setting"></a>A Unified Evaluation Setting</h2><p>At least report RE scores with the Strict criterion + Boundaries score with sufficient explanation and exploitation of both metrics<br>The average of NER and RE metrics: incorrect, since the NER performance is already measured in the RE score. </p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#A-Quick-Literature-Review"><span class="toc-number">1.</span> <span class="toc-text">A Quick Literature Review</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-classifiers"><span class="toc-number">1.1.</span> <span class="toc-text">Local classifiers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Incremental-Joint-Training"><span class="toc-number">1.2.</span> <span class="toc-text">Incremental Joint Training</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Entity-Filtering"><span class="toc-number">1.3.</span> <span class="toc-text">Entity Filtering</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Multi-Head-Selection"><span class="toc-number">1.4.</span> <span class="toc-text">Multi-Head Selection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Span-level-NER"><span class="toc-number">1.5.</span> <span class="toc-text">Span-level NER</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Question-Answering"><span class="toc-number">1.6.</span> <span class="toc-text">Question Answering</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Datasets-and-Metrics"><span class="toc-number">2.</span> <span class="toc-text">Datasets and Metrics</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Datasets"><span class="toc-number">2.1.</span> <span class="toc-text">Datasets:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Metrics"><span class="toc-number">2.2.</span> <span class="toc-text">Metrics:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E4%B8%AA%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86%EF%BC%9A"><span class="toc-number">2.3.</span> <span class="toc-text">三个评价标准：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Identified-Issues-in-Published-Results"><span class="toc-number">2.4.</span> <span class="toc-text">Identified Issues in Published Results</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#A-Small-Empirical-Study"><span class="toc-number">3.</span> <span class="toc-text">A Small Empirical Study</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Boundaries-setting-OR-Strict-setting"><span class="toc-number">3.1.</span> <span class="toc-text">Boundaries setting OR Strict setting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-BiLSTM-vs-BERT"><span class="toc-number">3.2.</span> <span class="toc-text">Encoder : BiLSTM vs BERT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NER-Decoder-BILOU-vs-Span"><span class="toc-number">3.3.</span> <span class="toc-text">NER Decoder : BILOU vs Span</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#How-to-Prevent-Future-Mistakes"><span class="toc-number">4.</span> <span class="toc-text">How to Prevent Future Mistakes?</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reproducibility-amp-Complete-Reports"><span class="toc-number">4.1.</span> <span class="toc-text">Reproducibility  &amp; Complete Reports</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-Unified-Evaluation-Setting"><span class="toc-number">4.2.</span> <span class="toc-text">A Unified Evaluation Setting</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/03/lit-review-sincere/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/03/lit-review-sincere/&text=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/03/lit-review-sincere/&is_video=false&description=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;&body=Check out this article: http://yoursite.com/2021/02/03/lit-review-sincere/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/03/lit-review-sincere/&title=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/03/lit-review-sincere/&name=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/03/lit-review-sincere/&t=lit review &#34;Let’s Stop Incorrect Comparisons in End-to-end Relation Extraction!&#34;"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Wentao Kang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
