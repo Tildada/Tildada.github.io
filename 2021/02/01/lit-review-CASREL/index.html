@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://yoursite.com/images/casrel_pic2.jpg">
 <meta property="og:image" content="http://yoursite.com/images/casrel_pic3.jpg">
 <meta property="article:published_time" content="2021-02-01T13:32:00.000Z">
-<meta property="article:modified_time" content="2021-02-04T03:27:55.459Z">
+<meta property="article:modified_time" content="2021-02-09T13:52:37.645Z">
 <meta property="article:author" content="Wentao Kang">
 <meta property="article:tag" content="lit review">
 <meta property="article:tag" content="Entity and Relation Extraction">
@@ -158,7 +158,7 @@
 
   <div class="content" itemprop="articleBody">
     <h1 id="一、解决了什么问题"><a href="#一、解决了什么问题" class="headerlink" title="一、解决了什么问题"></a>一、解决了什么问题</h1><p>传统实体关系抽取模型在处理overlapping 三元组时依然存在很多不足。它们只是把关系当作离散的标签来分配给实体对，但这会使得模型学习很困难。首先，类的分布是高度不平衡的，很多关系并不会在给定句子中出现，存在过多的负样本。第二，在训练数据少的情况下，在overlapping的情况下，分类器很难判断出这个实体参与了哪个关系 。</p>
-<h1 id="二、如何解决"><a href="#二、如何解决" class="headerlink" title="二、如何解决"></a>二、如何解决</h1><p>传统方法：f(s, o) —&gt; r<br>CasRel(relation-specific taggers)：fr(s) —&gt; o，先识别主体，然后再同时确定所有可能的关系和相应对象。直接在triple level建模并设计。<br><img src="/images/casrel_pic1.jpg" alt="alt"><br>这样做的好处，首先，data likelihood 为triple level，优化更加直接有效（optimizing this likelihood corresponds to directly optimizing the final evaluation criteria at the triple level）。第二，没有对一个句子中的overlapping 三元组如何共享实体做人为假设，而是直接通过模型的设计解决这个问题。第三，学习一个主体tagger，再为每个关系学习一个客体tagger，这样做将每个关系建模为一个将主体映射到对象的函数，而不是对主客体对进行分类。</p>
+<h1 id="二、如何解决"><a href="#二、如何解决" class="headerlink" title="二、如何解决"></a>二、如何解决</h1><p>传统方法：f(s, o) —&gt; r<br>CasRel(relation-specific taggers)：fr(s) —&gt; o，先识别主体，然后再同时确定所有可能的关系和相应对象。直接在triple level建模并设计。<br><img src="/images/casrel_pic1.jpg" alt="alt"><br>这样做的好处，首先，data likelihood 为triple level，优化更加直接有效（optimizing this likelihood corresponds to directly optimizing the final evaluation criteria at the triple level）。第二，没有对一个句子中的overlapping 三元组如何共享实体做人为假设，而是直接通过模型的设计解决这个问题。第三，学习一个主体tagger，再为每个关系学习一个客体tagger，这样做将每个关系建模为一个将主体映射到客体的函数，而不是对主客体对进行分类得到关系。</p>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>该句有三个主体，因此k会取1，2，3分别表示主体为橙、绿、蓝时，模型的抽取情况。<br><img src="/images/casrel_pic2.jpg" alt="alt"><br>训练时，最大化Data Log-likelihood Objective<br><img src="/images/casrel_pic3.jpg" alt="alt"></p>
 <h1 id="三、分析结论"><a href="#三、分析结论" class="headerlink" title="三、分析结论"></a>三、分析结论</h1><p>对比实验CASRELrandom（Bert参数随机初始化）, CASRELLSTM（使用LSTM+Glove编码）, CASREL，证明即便不使用预训练模型，该方法依然能够提高抽取效果。</p>
 <p>数据集NYT中Normal类型较多。WebNLG中EPO和SEO较多，更难。之前的模型在两数据集中的表现存在一定的差距。CASREL在NYT和WebNLG数据集上都展示了不错的性能，证明了其在解决重叠问题上的有效性。</p>

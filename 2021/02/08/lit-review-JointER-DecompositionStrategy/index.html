@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="一、解决了什么问题传统方法先抽实体再识别关系，N个实体会需要做大约N的平方次关系判断，存在较多redundant entity pairs，且这些实体对之间大多数并不具有实际关系。 序列标注，Zheng et al. 无法处理overlapping relations的情况。Dai et al. 在每一个单词位置处做一个序列标注，同时得到与当前位置处相关的实体关系信息。但它忽视了实体关系对内部存在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lit review &quot;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&quot;">
+<meta property="og:url" content="http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/index.html">
+<meta property="og:site_name" content="Wentao&#39;s Blog">
+<meta property="og:description" content="一、解决了什么问题传统方法先抽实体再识别关系，N个实体会需要做大约N的平方次关系判断，存在较多redundant entity pairs，且这些实体对之间大多数并不具有实际关系。 序列标注，Zheng et al. 无法处理overlapping relations的情况。Dai et al. 在每一个单词位置处做一个序列标注，同时得到与当前位置处相关的实体关系信息。但它忽视了实体关系对内部存在">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/JointER-DecompositionStrategy1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/JointER-DecompositionStrategy2.jpg">
+<meta property="article:published_time" content="2021-02-08T13:54:18.000Z">
+<meta property="article:modified_time" content="2021-02-08T14:11:01.689Z">
+<meta property="article:author" content="Wentao Kang">
+<meta property="article:tag" content="lit review">
+<meta property="article:tag" content="Entity and Relation Extraction">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/JointER-DecompositionStrategy1.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/02/08/lit-review-TPLinker/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/02/04/lit-review-relativepositoinemb/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&text=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&is_video=false&description=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;&body=Check out this article: http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&name=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&t=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">一、解决了什么问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.</span> <span class="toc-text">二、如何解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8span-based-tagging-scheme%E3%80%82"><span class="toc-number">2.1.</span> <span class="toc-text">使用span-based tagging scheme。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">模型结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E6%9E%90%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text">三、分析结论</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wentao's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-08T13:54:18.000Z" itemprop="datePublished">2021-02-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Entity-and-Relation-Extraction/" rel="tag">Entity and Relation Extraction</a>, <a class="tag-link-link" href="/tags/lit-review/" rel="tag">lit review</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="一、解决了什么问题"><a href="#一、解决了什么问题" class="headerlink" title="一、解决了什么问题"></a>一、解决了什么问题</h1><p>传统方法先抽实体再识别关系，N个实体会需要做大约N的平方次关系判断，存在较多redundant entity pairs，且这些实体对之间大多数并不具有实际关系。</p>
+<p>序列标注，Zheng et al. 无法处理overlapping relations的情况。Dai et al. 在每一个单词位置处做一个序列标注，同时得到与当前位置处相关的实体关系信息。但它忽视了实体关系对内部存在的依赖，即尾实体和关系的识别应是依赖于某一特定的头实体。</p>
+<h1 id="二、如何解决"><a href="#二、如何解决" class="headerlink" title="二、如何解决"></a>二、如何解决</h1><p>对于某一句子，首先找出所有可能存在的主体 Head-Entity (HE) extraction，然后为每一个主体建模，接着找出客体的头尾和所属关系Tail-Entity and Relation (TER) extraction。相比一次直接识别出所有实体，先找主体避免了redundant entity pairs。在TER中，句子中所有单词都有机会同当前主体进行交互，因此解决了overlapping relations的问题。而先主体再客体关系的顺序，使得模型在模型在标记客体和关系时，能够考虑到给定主体的语义和位置信息。</p>
+<h2 id="使用span-based-tagging-scheme。"><a href="#使用span-based-tagging-scheme。" class="headerlink" title="使用span-based tagging scheme。"></a>使用span-based tagging scheme。</h2><p>对于HE，实体类型被标记在每个实体的开始和结束位置。对于TER，在与给定主体相关的所有客体的开始和结束位置处标注关系类型。所以，如果有M个主体，就会进行2+2M次标注，相比Dai et al.（若一个句子有n个单词，需要做n次序列标注）复杂度较低。<br><img src="/images/JointER-DecompositionStrategy1.jpg" alt="alt"></p>
+<h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><ol>
+<li>BiLSTM对句子编码</li>
+<li>ai是从整个句子得到的一个全局表示，对于 TER 来说，ai还提供了主体的信息</li>
+<li>使用Softmax解码</li>
+<li>pi（position embedding）表示相对距离，明确限制提取实体的长度，防止结束位置出现在开始位置前</li>
+<li>训练时损失函数为HE与TER损失函数相加</li>
+<li>测试时，multi-span decoding algorithm得到实体关系对<br><img src="/images/JointER-DecompositionStrategy2.jpg" alt="alt"></li>
+</ol>
+<h1 id="三、分析结论"><a href="#三、分析结论" class="headerlink" title="三、分析结论"></a>三、分析结论</h1><p>除了融合主体抽关系客体、排除多余的实体对的设计能够增强模型表现外，作者通过对比实验还做了其他分析。</p>
+<ol>
+<li>实验结果比Seq2Seq的模型要好，可能因为the innate restrictions on RNN unrolling, the capacity of generating triplets is limited （GraphRel: Modeling text as relational graphs for joint entity and relation extraction）。</li>
+<li>在人工标注的测试数据中，有些重叠关系没有被标注。作者在 NYT-single测试集中加入了一些三元组，模型表现有了提升。</li>
+<li>相比ETL-BIES，ETL-Span更好（?）。首先，ETL-BIES需要做额外的工作来学习BIES标签的语义含义。但ETL-Span模型的在设计时已经考虑到了实体的开始和结束位置，实体边界由标签编码自然得到，缩小了每一个tagger的标注空间，也让任务变得更容易。另外，ETL-Span的速度也更快。</li>
+<li>Character-level representations are helpful to capture the morphological information and deal with OOV words.</li>
+<li>位置信息很重要。如果识别客体时知道主体位置，找实体的结束位置时知道实体的开始位置，都会改善模型表现。</li>
+<li>主体的类型信息对TER抽取有帮助。</li>
+<li>ETL-Span 无法处理 EPO（entity pair overlapping）形式的问题。</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">一、解决了什么问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.</span> <span class="toc-text">二、如何解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8span-based-tagging-scheme%E3%80%82"><span class="toc-number">2.1.</span> <span class="toc-text">使用span-based tagging scheme。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-number">2.2.</span> <span class="toc-text">模型结构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E6%9E%90%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text">三、分析结论</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&text=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&is_video=false&description=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;&body=Check out this article: http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&title=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&name=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/08/lit-review-JointER-DecompositionStrategy/&t=lit review &#34;Joint Extraction of Entities and Relations Based on a Novel Decomposition Strategy&#34;"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Wentao Kang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

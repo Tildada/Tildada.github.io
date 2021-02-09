@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="一、解决什么问题探索如何使用encoder-decoder模型从句子中提取关系三元组。挑战：模型应该能够同时提取实体和关系、应能提取具有重叠实体的多个三元组、应能够准确提取一个三元组中的两个实体及其全名。 二、如何解决 Encoder-Decoder ArchitectureThe model has to generate the entity tokens, ﬁnd relation clue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lit review &quot;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&quot;">
+<meta property="og:url" content="http://yoursite.com/2021/02/08/lit-review-Effective-En-De/index.html">
+<meta property="og:site_name" content="Wentao&#39;s Blog">
+<meta property="og:description" content="一、解决什么问题探索如何使用encoder-decoder模型从句子中提取关系三元组。挑战：模型应该能够同时提取实体和关系、应能提取具有重叠实体的多个三元组、应能够准确提取一个三元组中的两个实体及其全名。 二、如何解决 Encoder-Decoder ArchitectureThe model has to generate the entity tokens, ﬁnd relation clue">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/ed1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/ed2.jpg">
+<meta property="article:published_time" content="2021-02-08T14:16:22.000Z">
+<meta property="article:modified_time" content="2021-02-08T14:20:46.607Z">
+<meta property="article:author" content="Wentao Kang">
+<meta property="article:tag" content="lit review">
+<meta property="article:tag" content="Entity and Relation Extraction">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/ed1.jpg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/02/08/lit-review-ConstastiveTransformer/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/02/08/lit-review-PASL/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&text=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&is_video=false&description=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;&body=Check out this article: http://yoursite.com/2021/02/08/lit-review-Effective-En-De/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&name=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&t=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">一、解决什么问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.</span> <span class="toc-text">二、如何解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-Decoder-Architecture"><span class="toc-number">2.1.</span> <span class="toc-text">Encoder-Decoder Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Embedding-Layer-amp-Encoder"><span class="toc-number">2.2.</span> <span class="toc-text">Embedding Layer &amp; Encoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Word-level-Decoder-amp-Copy-Mechanism"><span class="toc-number">2.3.</span> <span class="toc-text">Word-level Decoder &amp; Copy Mechanism</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relation-Tuple-Extraction"><span class="toc-number">2.4.</span> <span class="toc-text">Relation Tuple Extraction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attention-Modeling"><span class="toc-number">2.5.</span> <span class="toc-text">Attention Modeling</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E6%9E%90%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text">三、分析结论</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Wentao's Blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-08T14:16:22.000Z" itemprop="datePublished">2021-02-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Entity-and-Relation-Extraction/" rel="tag">Entity and Relation Extraction</a>, <a class="tag-link-link" href="/tags/lit-review/" rel="tag">lit review</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="一、解决什么问题"><a href="#一、解决什么问题" class="headerlink" title="一、解决什么问题"></a>一、解决什么问题</h1><p>探索如何使用encoder-decoder模型从句子中提取关系三元组。挑战：模型应该能够同时提取实体和关系、应能提取具有重叠实体的多个三元组、应能够准确提取一个三元组中的两个实体及其全名。</p>
+<h1 id="二、如何解决"><a href="#二、如何解决" class="headerlink" title="二、如何解决"></a>二、如何解决</h1><p><img src="/images/ed1.jpg" alt="alt"></p>
+<h2 id="Encoder-Decoder-Architecture"><a href="#Encoder-Decoder-Architecture" class="headerlink" title="Encoder-Decoder Architecture"></a>Encoder-Decoder Architecture</h2><p>The model has to generate the entity tokens, ﬁnd relation clue words and map them to the relation tokens, and generate the special tokens at appropriate time<br><img src="/images/ed2.jpg" alt="alt"></p>
+<h2 id="Embedding-Layer-amp-Encoder"><a href="#Embedding-Layer-amp-Encoder" class="headerlink" title="Embedding Layer &amp; Encoder"></a>Embedding Layer &amp; Encoder</h2><p>vocabulary V包含文本数据所有的token、关系名称、特殊字符（分割字符）、SOS(start-of-target-sequence token)、EOS(end-of-target-sequence token)、UNK(unknown word token)<br>Word-level embeddings: pre-trained word vectors + character embedding-based feature vectors<br>Encoder: Bi-LSTM</p>
+<h2 id="Word-level-Decoder-amp-Copy-Mechanism"><a href="#Word-level-Decoder-amp-Copy-Mechanism" class="headerlink" title="Word-level Decoder &amp; Copy Mechanism"></a>Word-level Decoder &amp; Copy Mechanism</h2><p>Decoder: LSTM 在时间t，decoder以 sentence encoding vector e和前一时间target word embedding为输入，得到当前时间输出target word的隐藏表示。然后投射到V上，softmax解码。<br>测试时decoder可能会预测出一个当前句子中没有出现的token，为了避免这种情况，在softmax时只会保留当前句子中出现的token、关系、分隔符、UNK和EOS，其余的词汇均会被mask（将对应词softmax输入设为负无穷）。这就保证了实体只会从原句中复制得到。如果decoder预测到一个UNK，就用attention得分最高的词替换掉。<br>Pointer Network-Based Decoder<br>使用实体的开始和结束位置为实体定位，使用2个pointer networks。输出的实体关系对由头尾实体的开始和结束位置以及关系类型五个部分组成。</p>
+<h2 id="Relation-Tuple-Extraction"><a href="#Relation-Tuple-Extraction" class="headerlink" title="Relation Tuple Extraction"></a>Relation Tuple Extraction</h2><p>s1i,e1i代表第i个词是头实体的开始和结束位置的概率。<br>实体向量表示：a1t a2t<br>rt表示在时间t时关系的概率分布</p>
+<h2 id="Attention-Modeling"><a href="#Attention-Modeling" class="headerlink" title="Attention Modeling"></a>Attention Modeling</h2><p>获得上下文表示使用了3种不同方法： encoder隐藏层的均值、N-gram attention mechanism、Single（ best performance，word level，对于第i个词，attetion时需考虑前一时刻decoder隐藏层表示和当前词表示h Ei）</p>
+<h1 id="三、分析结论"><a href="#三、分析结论" class="headerlink" title="三、分析结论"></a>三、分析结论</h1><ol>
+<li>NYT24 相比NYT29更容易，因为NYT24的训练集和测试集中，有更多的相同的重叠三元组分布The reason is that NYT24 has around 72.0% of overlapping tuples between the training and test data (% of test tuples that appear in the training data with different source sentences)</li>
+<li>WordDecoding相比 PtrNetDecoding表现更好，因为有更多的可训练参数。</li>
+<li>作者认为pointer network对任务来说更合适。让WordDecoding在对的时刻生成分隔符和关系名称是有难度的，而对于从生成的单词序列中找三元组来说却是至关重要的。 PtrNetDecoding在速度上也更占优势，PtrNetDecoding每一个时间步骤生成一个三元组，softmax选择范围也更小，WordDecoding一次只可以生成一个单词，且每一次softmax选择输出token的范围都是整个词汇表。</li>
+<li>将出现的错误分为三类：识别实体错误，抽取的关系错误，实体和关系配对错误。对比发现，PtrNetDecoding表现较好，但是WordDecoding f1 score较高，PtrNetDecoding在将实体与关系配对时，错误较多。</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">一、解决什么问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">2.</span> <span class="toc-text">二、如何解决</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder-Decoder-Architecture"><span class="toc-number">2.1.</span> <span class="toc-text">Encoder-Decoder Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Embedding-Layer-amp-Encoder"><span class="toc-number">2.2.</span> <span class="toc-text">Embedding Layer &amp; Encoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Word-level-Decoder-amp-Copy-Mechanism"><span class="toc-number">2.3.</span> <span class="toc-text">Word-level Decoder &amp; Copy Mechanism</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Relation-Tuple-Extraction"><span class="toc-number">2.4.</span> <span class="toc-text">Relation Tuple Extraction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Attention-Modeling"><span class="toc-number">2.5.</span> <span class="toc-text">Attention Modeling</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%88%86%E6%9E%90%E7%BB%93%E8%AE%BA"><span class="toc-number">3.</span> <span class="toc-text">三、分析结论</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&text=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&is_video=false&description=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;&body=Check out this article: http://yoursite.com/2021/02/08/lit-review-Effective-En-De/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&title=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&name=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://yoursite.com/2021/02/08/lit-review-Effective-En-De/&t=lit review &#34;Effective Modeling of Encoder-Decoder Architecture for Joint Entity and Relation Extraction Seq2Seq&#34;"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    Wentao Kang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/projects_url">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
